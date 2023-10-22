@@ -172,7 +172,7 @@ question-answering task.
 {% bibliography --cited %}
 
 
-[^1]: <http://labs.theguardian.com/digital-language-divide/>
+[^1]: <https://labs.theguardian.com/digital-language-divide/>
 
 [^2]: Word embeddings and word representation are interchangeable in our
     thesis.

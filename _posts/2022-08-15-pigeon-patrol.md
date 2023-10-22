@@ -30,8 +30,9 @@ enable the different functionalities of the simulator.
 They provide:
   - The option to manually or automatically specify drone flightpaths through the environment, 
 <p align="center">
-  <img src="/assets/img/pigeon-patrol/gta_map.png" width="800">
+  <img src="/assets/img/pigeon-patrol/gta_map.png" width="800" alt="Grand Theft Auto V Map">
 </p>
+
 
   - The choice of two pre-trained reeinforcement learning piloting systems, called 
     **Autopylot** and **Speedra**, to navigate the flightpaths
@@ -57,7 +58,7 @@ The software architecture of our product consists of three major parts:
 In the following, these core components are considered separately in detail.
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/62884101/115420204-3c920d80-a1fb-11eb-89d7-66b4f90eccc8.png" width="800">
+  <img src="https://user-images.githubusercontent.com/62884101/115420204-3c920d80-a1fb-11eb-89d7-66b4f90eccc8.png" width="800" alt="image">
 </p>
 
 ## 2.1 Unreal Engine Editor
@@ -107,7 +108,7 @@ In this section, we describe the Plugin "Automatic Drone Path Generation" (ADPG)
 To use the ADPG, one just needs to click the plugin-icon "Automatic Path Gen." in the plugin control bar: 
 
 <p align="center">
-<img width="700" alt="Screen Shot 2021-04-22 at 21 57 06" src="https://user-images.githubusercontent.com/49568266/115777843-149ad980-a3b6-11eb-80e6-fe00bdfb4740.png">
+<img width="700" alt="Screen Shot 2021-04-22 at 21 57 06" src="https://user-images.githubusercontent.com/49568266/115777843-149ad980-a3b6-11eb-80e6-fe00bdfb4740.png" alt="image">
 </p>
 
 To give a brief motivation on our algorithm, we define the goals of ADPG:
@@ -122,7 +123,7 @@ To give a brief motivation on our algorithm, we define the goals of ADPG:
 In the following, the manual drone path specification (MDPS) is described in more detail. The **purpose** of the MDPS is to enable the user to create a custom flight path on his own that may include scenarios that he is especially interested in, e.g. make the drone fly under a bridge. Therefore, we exploit the drag-and-drop functionality that is already part of the Unreal Engine editor, with which the user can select the blueprint from the content browser and place it in the environment. This plugin can only be used when the simulation is turned off. 
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/62884101/115674748-44ae9200-a34e-11eb-916f-d715e9970d26.png" width="200">
+  <img src="https://user-images.githubusercontent.com/62884101/115674748-44ae9200-a34e-11eb-916f-d715e9970d26.png" width="200" alt="image">
 </p>
 
 We introduce a new blueprint into the content browser, which can be used to specify a checkpoint. The checkpoint element looks similar to the element above. When placing these checkpoints in the environment, each of these checkpoints will have an invisible actor tag called 'Checkpoint'. These actor tags are exploited to distinguish checkpoint elements from other elements in the environment. 
@@ -200,7 +201,7 @@ The set of all possible states is called state space. After each action, the age
 Translated to our use case: If we are in front of an object, it does not matter what happened in the past, we can get all the information we need from the current state to try to avoid this object. 
 
 <p align="center">
-<img width="600" alt="drone_ex" src="https://user-images.githubusercontent.com/49568266/115149283-a9729f80-a063-11eb-9a26-de6942becee2.png">
+<img width="600" alt="drone_ex" src="https://user-images.githubusercontent.com/49568266/115149283-a9729f80-a063-11eb-9a26-de6942becee2.png" alt="image">
 </p>
 	
 So now, we only need to solve the problem state by state: How to choose the **best action depending on the current state**!
@@ -210,7 +211,7 @@ So now, we only need to solve the problem state by state: How to choose the **be
 The hard problem however is, **how to evaluate an action**. For example, if we are in front of an object and the checkpoint is right behind the object, we may choose an action, that flies towards the object, which also does not lead to a collision (yet). So with that action, we got closer to the checkpoint and did not collide. Therefore the drone receives a positive reward. 
 
 <p align="center">
-<img width="700" alt="Screen Shot 2021-04-19 at 22 22 09" src="https://user-images.githubusercontent.com/49568266/115298682-0fdbe880-a15e-11eb-826f-43f5b09ac4ab.png">
+<img width="700" alt="Screen Shot 2021-04-19 at 22 22 09" src="https://user-images.githubusercontent.com/49568266/115298682-0fdbe880-a15e-11eb-826f-43f5b09ac4ab.png" alt="image">
 </p>
 
 However, and this is the main issue in RL, in the next step (or near future), a collision might not be avoidable anymore! So, according to our reward, the action was good, but in reality, such a risky action must be avoided.
@@ -231,7 +232,7 @@ One problem remains: For each possible state and each possible action in that st
 The simple but brilliant idea is to replace this lookup table from the Q-Learning method with a neural network, that receives a state and predicts the corresponding value of action. With that trick, we do not save each state-action and the value of action in a table, but represent this information as the parameters of the network!
 
 <p align="center">
-<img width="500" alt="Screen Shot 2021-04-18 at 15 37 21" src="https://user-images.githubusercontent.com/49568266/115147590-05d1c100-a05c-11eb-8207-ffe46b8c8962.png">
+<img width="500" alt="Screen Shot 2021-04-18 at 15 37 21" src="https://user-images.githubusercontent.com/49568266/115147590-05d1c100-a05c-11eb-8207-ffe46b8c8962.png" alt="image">
 </p>
 
 Another important advantage is, that the network can generalize to states that were not seen yet and predict the appropriate action. This can not be done with the Q-Learning since it only uses a state-action look-up table.
@@ -341,7 +342,7 @@ The layers of these two networks share a similar structure with one core differe
 
 <p align="center">
   <figure align="center">
-    <img src="https://user-images.githubusercontent.com/62884101/115700367-e5a94700-a366-11eb-8b61-aa1fbd299979.png" width="400">
+    <img src="https://user-images.githubusercontent.com/62884101/115700367-e5a94700-a366-11eb-8b61-aa1fbd299979.png" width="400" alt="image">
     <figcaption>Source: Patel, Y. (2018). Optimizing Market Making using Multi-Agent Reinforcement Learning.</figcaption>
   </figure> 
 </p>
@@ -415,7 +416,7 @@ Similarity is the cosine similarity of the taken action direction to the target 
 Since most steps will be evaluated by the third condition of the reward function, it is visualized below. Similarity and Progress behave very similarly, so we can plot both on one axis:
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/73107385/115144885-55f65680-a04f-11eb-996b-00f4602bd254.png" width="400">
+<img src="https://user-images.githubusercontent.com/73107385/115144885-55f65680-a04f-11eb-996b-00f4602bd254.png" width="400" alt="image">
 </p>
 
 Even though both measures behave similarly, they both have legitimacy. Progress allows us to reward desirable behaviour scaled by epsilon (0.01) and to stop episodes, if the drone moves back too far. Similarity however is used for general step punishment scaled by alpha (-0.01) with stronger punishment on backwards steps, independent of Progress.
@@ -472,7 +473,7 @@ The same Pseudocode applies to Speedra.
 Speedra uses a simplified action space. It only has 7 possible movements:
 
 <p align="center">
-<img width="300" alt="Screen Shot 2021-04-21 at 15 56 36" src="https://user-images.githubusercontent.com/49568266/115566032-33b44100-a2ba-11eb-807b-45baf22bd002.png">
+<img width="300" alt="Screen Shot 2021-04-21 at 15 56 36" src="https://user-images.githubusercontent.com/49568266/115566032-33b44100-a2ba-11eb-807b-45baf22bd002.png" alt="image">
 </p>
 
 
@@ -492,7 +493,7 @@ As Autopylot, we are using Lidar Sensors to constantely evaluate our environment
 An Illustration of the 2D Matrix can be seen here:
 
 <p align="center">
-<img width="500" alt="drone_ex" src="https://user-images.githubusercontent.com/49568266/115152855-40932380-a073-11eb-9658-4635c4b48a93.png">
+<img width="500" alt="drone_ex" src="https://user-images.githubusercontent.com/49568266/115152855-40932380-a073-11eb-9658-4635c4b48a93.png" alt="image">
 </p>
 
 Furthermore, Speedra use the current position, the x, y and z difference from our current position to the next checkpoint and the euclidean distance to the next checkpoint for positional information.
@@ -503,7 +504,7 @@ Furthermore, Speedra use the current position, the x, y and z difference from ou
 Speedra's Reward logic goes as follow:
 
 <p align="center">
-<img width="400" alt="Screen Shot 2021-04-19 at 17 52 29" src="https://user-images.githubusercontent.com/49568266/115265975-0cce0180-a138-11eb-9366-2371f1a39793.png">
+<img width="400" alt="Screen Shot 2021-04-19 at 17 52 29" src="https://user-images.githubusercontent.com/49568266/115265975-0cce0180-a138-11eb-9366-2371f1a39793.png" alt="image">
 </p>
 
 *where dx, dy and dz are the differences between the current (x-, y- or z-) distance to checkpoint and previous (x-, y- or z-) distance to checkpoint.* It basically tests if we got closer to the checkpoint in at least one of the 3 directions.
